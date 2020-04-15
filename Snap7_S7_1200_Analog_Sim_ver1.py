@@ -17,7 +17,7 @@ import locale
 # time start to  delay
 last_time_ms = int(round(time.time() * 10000))
 
-# Path to save file path:/root/Dokumenty/PythonS7Snap/file_data.csv
+# Path to save file path: C:\User\rtecmer\Dokuments\Anaconda_PyCharm\S7Snap_S7-1200_Analog_Sim\
 path_input = input("please enter where to save the files: ")
 path_save = str(path_input)
 
@@ -74,7 +74,7 @@ while True:
         # execution condition delay time
         diff_time_ms = int(round(time.time() * 10000)) - last_time_ms
         # This is delay 80000ms = 8s
-        if diff_time_ms >= 3000000:
+        if diff_time_ms >= 300000:
             last_time_ms = int(round(time.time() * 10000))
 
             # Stamp to time & date
@@ -85,11 +85,11 @@ while True:
             #  connect to S7 1200
             try:
                 client = snap7.client.Client()
-                client.connect('192.168.1.121', 0, 1)
+                client.connect('192.168.1.3', 0, 1)
             except snap7.snap7exceptions.Snap7Exception:
                 time.sleep(0.2)
                 client = snap7.client.Client()
-                client.connect('192.168.1.121', 0, 1)
+                client.connect('192.168.4.3', 0, 1)
 
             # Read temperature Outside (db 3, instance 24, data =" real" )
             outside = data_block_read(3, 24, 4)
