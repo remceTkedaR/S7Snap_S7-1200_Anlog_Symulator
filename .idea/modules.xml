@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/S7Snap_S7_1200_AnalogSim.iml" filepath="$PROJECT_DIR$/.idea/S7Snap_S7_1200_AnalogSim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PythonS7Snap_S7-1200_read_data.iml" filepath="$PROJECT_DIR$/.idea/PythonS7Snap_S7-1200_read_data.iml" />
     </modules>
   </component>
 </project>
