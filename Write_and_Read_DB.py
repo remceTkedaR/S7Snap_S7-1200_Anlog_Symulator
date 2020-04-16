@@ -32,7 +32,7 @@ def ReadMemory(plc,byte,bit,datatype):
         return None
 
 def WriteMemory(plc,byte,bit,datatype,value):
-    result = plc.read_area(areas['MK'],0,byte,datatype)
+    result = plc.read_area(areas['DB'],0,byte,datatype)
     if datatype==S7WLBit:
         set_bool(result,0,bit,value)
     elif datatype==S7WLByte or datatype==S7WLWord:
@@ -40,12 +40,11 @@ def WriteMemory(plc,byte,bit,datatype,value):
     elif datatype==S7WLReal:
         set_real(result,0,value)
     elif datatype==S7WLDWord:
-        set_dword(result,0,value)
-    plc.write_area(areas["DB"],0,byte,result)
+        plc.write_area(areas["DB"],0,byte,result)
+
 
 if __name__=="__main__":
     plc = c.Client()
     plc.connect('192.168.1.121',0,1)
     print( ReadMemory(plc,1,0,S7WLReal))
-    print(WriteMemory(plc,18,19,S7WLReal,3.141592))
-    print(ReadMemory(plc,1,0,S7WLReal))
+    print(WriteMemory(plc,14,38,S7AreaDB,3.141592))
