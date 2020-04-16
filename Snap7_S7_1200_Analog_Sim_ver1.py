@@ -10,9 +10,20 @@ import csv
 import time
 from datetime import datetime
 from datetime import date
-import fnmatch
+import snap7.client as c
+from snap7.util import *
+from snap7.snap7types import *
 import os
 import locale
+
+
+
+# Function write data from instance db, %MW,
+
+
+def write_db(db_number, start, value):
+    data = value
+    plc.as_db_write(db_number, start, data)
 
 # time start to  delay
 last_time_ms = int(round(time.time() * 10000))
@@ -47,9 +58,6 @@ def read_coils_s7(byte_out, byte_size, out_bit):
     return result
 
 
-
-
-
 b = 0
 
 while True:
@@ -60,7 +68,7 @@ while True:
 
     # file headers to saving
     file_data_csv.writerow(
-        ['Date', 'Time', 'Outside', 'Living room', 'Hall', 'Bedroom 1', 'Bedroom 2', 'Bathroom', 'Room'])
+        ['Date', 'Time', 'MV_PID'])
 
     # index measurement loop
     a = 0
@@ -85,7 +93,7 @@ while True:
             #  connect to S7 1200
             try:
                 client = snap7.client.Client()
-                client.connect('192.168.1.3', 0, 1)
+                client.connect('192.168.4.3', 0, 1)
             except snap7.snap7exceptions.Snap7Exception:
                 time.sleep(0.2)
                 client = snap7.client.Client()
@@ -130,3 +138,4 @@ while True:
 
 # def __init__(self):
 #    lib_location='/usr/local/lib/libsnap7.so'
+
