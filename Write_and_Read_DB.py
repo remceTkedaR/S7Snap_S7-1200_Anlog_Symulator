@@ -17,6 +17,8 @@ import fnmatch
 import os
 import locale
 
+plc = c.Client()
+plc.connect('192.168.1.121', 0, 1)
 
 def ReadMemory(plc,byte,bit,datatype):
     result = plc.read_area(areas['MK'],0,byte,datatype)
@@ -39,12 +41,10 @@ def WriteMemory(plc,byte,bit,datatype,value):
         set_int(result,0,value)
     elif datatype==S7WLReal:
         set_real(result,0,value)
-    elif datatype==S7WLDWord:
-        plc.write_area(areas["DB"],0,byte,result)
+    #elif datatype==S7WLDWord:
+        #plc.write_area(areas["DB"],0,byte,result)
 
 
 if __name__=="__main__":
-    plc = c.Client()
-    plc.connect('192.168.1.121',0,1)
     print( ReadMemory(plc,1,0,S7WLReal))
-    print(WriteMemory(plc,14,38,S7AreaDB,3.141592))
+    #print(WriteMemory(plc,14,38,S7AreaDB,3.141592))
