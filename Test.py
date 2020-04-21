@@ -13,10 +13,14 @@ import os
 # Function write data from instance db, %MW,
 
 
-def write_data_db(db_number, all_data, size):
-    area = snap7.snap7types.S7AreaDB
-    db_number = 14
-    client.write_area(area, db_number, 0, size, all_data)
+def write_data_db(db_number, all_data, value):
+    #area = snap7.snap7types.S7AreaDB
+    client.write_area(areas['DB'], db_number, all_data, value)
+
+
+def write_db(db_number, start, value):
+    data = value
+    client.as_db_write(db_number, start, data)
 
 
 def data_block_read(db_number, inst_number, data):
@@ -34,8 +38,7 @@ def data_block_read(db_number, inst_number, data):
 client = snap7.client.Client()
 client.connect('192.168.1.121', 0, 1)
 
-
-write_data_db(14, 36, 123)
+write_db(14, 38,  122)
 
 my_db14_DB36 = data_block_read(14, 36, 4)
 
