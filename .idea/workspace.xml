@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0838515f-a7a3-49ee-b92b-9313064bac80" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/file_data.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/PythonS7Snap_S7-1200_read_data.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PythonS7Snap_S7-1200_read_data.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1awccuuCoF43cackKzDagRnHqku" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="PythonS7Snap_S7-1200_read_data" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="PythonS7Snap_S7-1200_read_data" />
+      </console-settings>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python tests.pytest in Test.py">
+    <configuration name="Snap7_S7_1200_Analog_Sim_ver1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PythonS7Snap_S7-1200_read_data" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Snap7_S7_1200_Analog_Sim_ver1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PythonS7Snap_S7-1200_read_data" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/snap7" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/snap7/__init__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="snap7exceptions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PythonS7Snap_S7-1200_read_data" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/snap7" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/snap7/snap7exceptions.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="snap7types" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PythonS7Snap_S7-1200_read_data" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/snap7" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/snap7/snap7types.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in Test.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="PythonS7Snap_S7-1200_read_data" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Test.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.pytest in Test.py" />
+        <item itemvalue="Python.snap7types" />
+        <item itemvalue="Python.snap7exceptions" />
+        <item itemvalue="Python.__init__" />
+        <item itemvalue="Python.Snap7_S7_1200_Analog_Sim_ver1" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0838515f-a7a3-49ee-b92b-9313064bac80" name="Default Changelist" comment="" />
+      <created>1587650179830</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587650179830</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/S7Snap_S7-1200_Anlog_Symulator" />
+    </ignored-roots>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="801" y="263" key="EnvironmentVariablesDialog" timestamp="1587660955436">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state x="801" y="263" key="EnvironmentVariablesDialog/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587660955436" />
+    <state x="713" y="268" key="FileChooserDialogImpl" timestamp="1587742635259">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state x="713" y="268" key="FileChooserDialogImpl/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587742635259" />
+    <state width="753" height="247" key="GridCell.Tab.0.bottom" timestamp="1587747499619">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state width="753" height="247" key="GridCell.Tab.0.bottom/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587747499619" />
+    <state width="753" height="247" key="GridCell.Tab.0.center" timestamp="1587747499619">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state width="753" height="247" key="GridCell.Tab.0.center/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587747499619" />
+    <state width="753" height="247" key="GridCell.Tab.0.left" timestamp="1587747499619">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state width="753" height="247" key="GridCell.Tab.0.left/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587747499619" />
+    <state width="753" height="247" key="GridCell.Tab.0.right" timestamp="1587747499619">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state width="753" height="247" key="GridCell.Tab.0.right/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587747499619" />
+    <state width="1098" height="306" key="GridCell.Tab.1.bottom" timestamp="1587739747572">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state width="1098" height="306" key="GridCell.Tab.1.bottom/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587739747572" />
+    <state width="1098" height="306" key="GridCell.Tab.1.center" timestamp="1587739747571">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state width="1098" height="306" key="GridCell.Tab.1.center/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587739747571" />
+    <state width="1098" height="306" key="GridCell.Tab.1.left" timestamp="1587739747571">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state width="1098" height="306" key="GridCell.Tab.1.left/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587739747571" />
+    <state width="1098" height="306" key="GridCell.Tab.1.right" timestamp="1587739747572">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state width="1098" height="306" key="GridCell.Tab.1.right/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587739747572" />
+    <state x="435" y="145" key="SettingsEditor" timestamp="1587742886522">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state x="435" y="145" key="SettingsEditor/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587742886522" />
+    <state x="446" y="257" key="Vcs.Push.Dialog.v2" timestamp="1587747468627">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state x="446" y="257" key="Vcs.Push.Dialog.v2/0.0.1857.1080/1920.0.1920.1080@0.0.1857.1080" timestamp="1587747468627" />
+  </component>
+</project>
