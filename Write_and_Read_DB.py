@@ -20,6 +20,7 @@ import locale
 plc = c.Client()
 plc.connect('192.168.1.121', 0, 1)
 
+
 def ReadMemory(plc,byte,bit,datatype):
     result = plc.read_area(areas['MK'],0,byte,datatype)
     if datatype==S7WLBit:
@@ -32,6 +33,7 @@ def ReadMemory(plc,byte,bit,datatype):
         return get_dword(result,0)
     else:
         return None
+
 
 def WriteMemory(plc,byte,bit,datatype,value):
     result = plc.read_area(areas['DB'],0,byte,datatype)

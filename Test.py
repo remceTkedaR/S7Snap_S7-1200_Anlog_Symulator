@@ -13,9 +13,9 @@ import os
 # Function write data from instance db, %MW,
 
 
-def write_data_area(db_number, byte, datatype):
-    area = snap7.snap7types.S7AreaDB
-    client.write_area(areas['DB'], db_number, byte, datatype)
+def write_data_area(db_number, start, data):
+    data = bytearray(data)
+    client.write_area(areas['DB'], db_number, start, data)
 
 
 def write_db(db_number, start, value):
@@ -23,12 +23,29 @@ def write_db(db_number, start, value):
     client.as_db_write(db_number, start, data_my)
 
 
-def test_db_write(db_number, start, size):
+def test_db_write_byte_array(db_number, start, size):
     data = bytearray(size)
     client.as_db_write(db_number, start, data)
 
 
-def data_block_read(db_number, inst_number, data):
+def test_db_write_byte(db_number, start, size):
+    data = bytes(size)
+    client.as_db_write(db_number, start, data)
+
+
+def data_block_read_Int(db_number, inst_number, data):
+    db_val = client.db_read(db_number, inst_number, data)
+    value_struct = struct.iter_unpack("!h", db_val[:2])
+    for value_pack in value_struct:
+        value_unpack = value_pack
+    # Convert tuple to float
+    # using join() + float() + str() + generator expression
+    result = int('.'.join(str(ele) for ele in value_unpack))
+    my_str_value = '%-.2i' % result
+    return my_str_value
+
+
+def data_block_read_float(db_number, inst_number, data):
     db_val = client.db_read(db_number, inst_number, data)
     value_struct = struct.iter_unpack("!f", db_val[:4])
     for value_pack in value_struct:
@@ -43,11 +60,20 @@ def data_block_read(db_number, inst_number, data):
 client = snap7.client.Client()
 client.connect('192.168.1.121', 0, 1)
 
+write_data_area(14, 38, (250,0,0,0))
 
-test_db_write(14, 38, 2)
+write_data_area(14, 36, (0,3))
+
+#  DB14 DBW 36, DB14 DBD 38, DB18 DBB19
 
 
-my_db14_DB36 = data_block_read(14, 36, 4)
+#my_read = client.db_read(14, 36, 2)
 
-print(my_db14_DB36)
+my_read1 = data_block_read_Int(14, 36, 2)
+my_read2 = data_block_read_float(14, 38, 4)
+
+print(my_read1)
+print(my_read2)
+
+client.disconnect()
 
