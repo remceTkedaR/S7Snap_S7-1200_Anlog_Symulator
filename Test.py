@@ -58,14 +58,13 @@ def data_block_read_float(db_number, inst_number, data):
 
 
 client = snap7.client.Client()
-#client.connect('192.168.4.3', 0, 1)
+client.connect('192.168.1.121', 0, 1)
 
-write_data_area(1, 18, (0,250))
 
-write_data_area(1, 19, (0,100))
-
+# Home PLC
 #  DB14 DBW 36, DB14 DBD 38, DB18 DBB19
-# Job PLC DB1 DBW18 - oxygen
+# Job PLC
+# DB1 DBW18 - oxygen
 # DB1 DBW20 - oxygen 2
 # DB1 DBW22 - Pressure
 # DB1 DBW24 - Current
