@@ -70,6 +70,12 @@ write_data_area(1, 19, (0,100))
 # DB1 DBW22 - Pressure
 # DB1 DBW24 - Current
 
+write_data_area(14, 38, (250,0,0,0))
+
+write_data_area(14, 36, (0,3))
+
+#  DB14 DBW 36, DB14 DBD 38, DB18 DBB19
+
 
 #my_read = client.db_read(14, 36, 2)
 
