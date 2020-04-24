@@ -70,9 +70,9 @@ write_data_area(1, 19, (0,100))
 # DB1 DBW22 - Pressure
 # DB1 DBW24 - Current
 
-write_data_area(14, 38, (250,0,0,0))
+write_data_area(14, 36, (0,124))
 
-write_data_area(14, 36, (0,3))
+write_data_area(14, 38, (62,234,123,0))
 
 #  DB14 DBW 36, DB14 DBD 38, DB18 DBB19
 
