@@ -6,7 +6,7 @@ from datetime import datetime
 from datetime import date
 import snap7.client as c
 from snap7.util import *
-from snap7.snap7types import *
+from snap7.types import *
 import os
 
 
@@ -18,12 +18,12 @@ def write_data_area(db_number, start, data):
     plc.write_area(areas['DB'], db_number, start, data)
 
 
-def test_db_write_byte(db_number, start, size):
-    data = bytes(size)
-    plc.as_db_write(db_number, start, data)
+#def test_db_write_byte(db_number, start, size):
+    #data = bytes(size)
+    #plc.as_db_write(db_number, start, data)
 
 
-def data_block_read_byte(db_number, inst_number, size):
+def data_block_read_byte(db_number, inst_number, size=1):
     db_area = plc.db_read(db_number, inst_number, size)
     db4_byte = bin(db_area[0]).replace('0b', '')
     data_list = []
@@ -57,7 +57,7 @@ def data_block_read_float(db_number, inst_number, data):
 
 
 plc = c.Client()
-plc.connect('192.168.1.121', 0, 1)
+plc.connect('192.168.2.22', 0, 1)
 
 
 # Home PLC
@@ -68,19 +68,21 @@ plc.connect('192.168.1.121', 0, 1)
 # DB1 DBW22 - Pressure
 # DB1 DBW24 - Current
 
-write_data_area(14, 36, (0,124))
+write_data_area('DB',1, 18, (0,124))
 
-write_data_area(14, 38, (62,234,123,0))
+write_data_area('DB',1, 20, (0,125))
+
+#write_data_area(14, 38, (62,234,123,0))
 
 #  DB14 DBW 36, DB14 DBD 38, DB18 DBB19
 
 
 #my_read = client.db_read(14, 36, 2)
 
-my_read1 = data_block_read_int(14, 36, 2)
-my_read2 = data_block_read_float(14, 38, 4)
+my_read1 = data_block_read_int(1, 18, 2)
+my_read2 = data_block_read_int(1, 20, 2)
 
-db4 = data_block_read_byte(4, 0, 1)
+db4 = data_block_read_byte(1, 3 )
 
 
 print(my_read1)

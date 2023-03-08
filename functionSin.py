@@ -2,45 +2,69 @@
 #
 
 import math
+import numpy as np
 import matplotlib.pyplot as plt
 import datetime
 
 
-size = 5000
+size = 128
+min_1 = 8
 in_table = []
-a = 800
-b = 0
-x = 0
-
-k = 0
-while x < 1000:
-    x += 1
-    for i in range(size):
-        a += 5
-        k += 1
-        if a < 100 and b == 0:
-            in_table.append(a)
-    else:
-         b = 1
-
-    for k in range(size):
-     if b > 0:
-        a -= 5
-        k += 1
-        in_table.append(a)
+a = 0
 
 
+def function_sim_sinus(in_table, size, min_1, a):
+    b = 0
+    x = 0
+    d = 0
+    k = 0
+    while x < 256:
+        x += 1
+        for i in range(size):
+            a += 2
+            k += 1
+            if a < 29 and b == 0:
+                in_table.append(a)
+                print(b)
+            elif a >= 29 and b == 0:
+                b = 1
+                d = a
+                print('my set a -c', a)
+            else:
+                a = 21
 
-#for j in range(len(in_table)):
-   # out_table.append(math.sin(in_table[j]))
-    #j += 1
+        for j in range(size):
+            if b != 0 and d > min_1:
+                d -= 2
+                k += 1
+                in_table.append(d)
+                print(b)
+            elif d <= min_1 and b != 0:
+                a = d
+                b = 0
+                print('my set c -a ', d)
+            else:
+                a = 8
 
+
+function_sim_sinus(in_table, size, min_1, a)
+
+""""
+for j in range(len(in_table)):
+    out_table.append(math.sin(in_table[j]))
+    j += 1
+"""
 
 # red for numpy.sin()
+x_time = np.arange(0.0, len(in_table), 1)
 
-plt.plot(in_table, len(in_table),  color="red")
-plt.xlabel("X")
-plt.ylabel(datetime)
+
+print(in_table)
+print(len(in_table))
+
+plt.plot(x_time, in_table,  color="red")
+plt.xlabel("Time")
+plt.ylabel("Value")
 plt.show()
 
 

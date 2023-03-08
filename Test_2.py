@@ -13,25 +13,6 @@ import datetime
 
 import os
 
-from enum import EnumMeta
-
-
-def contains(cls, member):
-    return isinstance(member, cls) and member._name_ in cls._member_map_
-
-
-EnumMeta.__contains__ = contains
-
-client = c.Client()
-client.connect('192.168.2.22', 0, 1)
-
-# Variable initialization
-# set_value = 0
-size = 128
-min_1 = 1190
-in_table = []
-a = 1190
-
 """
 S7 1200 PlcSim IP 192.168.2.22
 size analog value min = 1200 (0.41 mg/L)    max = 14000 (5.04 mg/L)
@@ -46,7 +27,7 @@ MW18 - DB1.DBW0 Analog Current Over Inverter
 
 
 def read_memory(plc, byte, bit, data_type):
-    result = plc.read_area(Areas['MK'], 0, byte, data_type)
+    result = plc.read_area(areas['MK'], 0, byte, data_type)
     if data_type == S7WLBit:
         return get_bool(result, 0, bit)
     elif data_type == S7WLByte or data_type == S7WLWord:
@@ -60,7 +41,7 @@ def read_memory(plc, byte, bit, data_type):
 
 
 def write_memory(plc, byte, bit, data_type, value):
-    result = plc.read_area(Areas['MK'], 0, byte, data_type)
+    result = plc.read_area(areas['MK'], 0, byte, data_type)
     if data_type == S7WLBit:
         set_bool(result, 0, bit, value)
     elif data_type == S7WLByte or data_type == S7WLWord:
@@ -69,10 +50,18 @@ def write_memory(plc, byte, bit, data_type, value):
         set_real(result, 0, value)
     elif data_type == S7WLDWord:
         set_real(result, 0, value)
-    plc.write_area(Areas['MK'], 0, byte, result)
+    plc.write_area(areas["MK"], 0, byte, result)
 
 
-def function_sim_sinus(in_table, size, min_1, a):
+# Variable initialization
+#set_value = 0
+size = 750
+min = 9
+in_table = []
+a = 6
+
+
+def function_sim_sinus(in_table, size, min, a):
     b = 0
     x = 0
     d = 0
@@ -80,54 +69,71 @@ def function_sim_sinus(in_table, size, min_1, a):
     while x < 256:
         x += 1
         for i in range(size):
-            a += 100
+            a += 1
             k += 1
-            if a < 14000 and b == 0:
+            if a < 27 and b == 0:
                 in_table.append(a)
                 print(b)
-            elif a >= 2590 and b == 0:
+            elif a >= 27 and b == 0:
                 b = 1
                 d = a
                 print('my set a -c', a)
             else:
-                a = 1190
+                a = 21
 
         for j in range(size):
-            if b != 0 and d > min_1:
-                d -= 100
+            if b != 0 and d > min:
+                d -= 2
                 k += 1
                 in_table.append(d)
                 print(b)
-            elif d <= min_1 and b != 0:
+            elif d <= min and b != 0:
                 a = d
                 b = 0
                 print('my set c -a ', d)
             else:
-                a = 1000
+                a = 8
 # ---------------------------------
 
 
-function_sim_sinus(in_table, size, min_1, a)
+plc = c.Client()
+plc.connect('192.168.2.22', 0, 1)
 
+function_sim_sinus(in_table, size, min, a)
 Size_table = len(in_table)
-print('Size table :', Size_table)
-print('Table', in_table)
+print(Size_table)
+print(in_table)
 
-set_value = 0
+set_value_real = 2.5
 
-for x_1 in range(256):
-    print(x_1)
-    time.sleep(2)
-    set_value = in_table[x_1]
-    write_memory(client, 5, 0, S7WLWord, value=set_value)
-    print(read_memory(client, 13, 0, S7WLWord))
+# integer in size 0 - 27648 (respectively 0-10.0 to PLC)
+set_value = 456
 
-if __name__ == "__main__":
-    plc = c.Client()
-    plc.connect('192.168.2.22', 0, 1)
-    # Writing
-    write_memory(plc,5, 0, S7WLWord, value=set_value)
-    # Reading
-    print(read_memory(plc, 13, 0, S7WLWord))
-    print(in_table)
+# integer in size 0-100 (respectively  0 -10 to PLC )
+set_value_Int = 24
+
+while True:
+
+    for x_1 in range(256):
+        print(x_1)
+        print(read_memory(plc, 12, 0, S7WLWord))
+        print(time.time())
+        set_value_Int = in_table[x_1]
+        if set_value_Int <= 23:
+            time.sleep(15)
+            write_memory(plc, 12, 0, S7WLWord, value=set_value_Int)
+        elif time.sleep(12):
+            write_memory(plc, 12, 0, S7WLWord, value=set_value_Int)
+# print(read_memory(plc, 60, 0, S7WLWord))
+
+
+    if __name__ == "__main__":
+        plc = c.Client()
+        plc.connect('192.168.2.22', 0, 1)
+        # Writing
+        #write_memory(plc, 21, 0, S7WLWord, value=set_value_Int)
+        write_memory(plc, 12, 0, S7WLWord, value=set_value)
+         # Reading
+        print(read_memory(plc, 12, 0, S7WLWord))
+        print(time.time())
 
