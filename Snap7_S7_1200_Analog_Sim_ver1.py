@@ -25,7 +25,7 @@ from datetime import datetime
 from datetime import date
 import snap7.client as c
 from snap7.util import *
-from snap7.types import *
+from snap7.snap7types import *
 import os
 import locale
 
