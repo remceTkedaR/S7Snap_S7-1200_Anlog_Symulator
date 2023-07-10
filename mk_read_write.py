@@ -8,7 +8,7 @@
 import snap7
 import snap7.client as c
 from snap7.util import *
-from snap7.types import *
+from snap7.snap7types import *
 import struct
 import csv
 import time
@@ -32,7 +32,7 @@ DB4.X6.7 - WC valve
 """
 
 client = snap7.client.Client()
-client.connect('192.168.2.22', 0, 1)
+client.connect('192.168.1.121', 0, 1)
 client.get_connected()
 
 
@@ -64,5 +64,5 @@ def write_memory(client, byte, bit, data_type, value):
 
 
 if __name__ == "__main__":
-    print(read_memory(client, 13, 0, S7WLWord))
-    print(write_memory(client,5,38,S7WLWord,3))
+    print(read_memory(client, 102, 0, S7WLWord))
+    print(write_memory(client,100,0,S7WLWord,3))

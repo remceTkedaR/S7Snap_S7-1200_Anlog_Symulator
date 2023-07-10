@@ -6,7 +6,7 @@ from datetime import datetime
 from datetime import date
 import snap7.client as c
 from snap7.util import *
-from snap7.types import *
+from snap7.snap7types import *
 import math
 import matplotlib.pyplot as plt
 import datetime
@@ -97,7 +97,7 @@ def function_sim_sinus(in_table, size, min, a):
 
 
 plc = c.Client()
-plc.connect('192.168.2.22', 0, 1)
+plc.connect('192.168.1.121', 0, 1)
 
 function_sim_sinus(in_table, size, min, a)
 Size_table = len(in_table)
@@ -121,19 +121,19 @@ while True:
         set_value_Int = in_table[x_1]
         if set_value_Int <= 23:
             time.sleep(15)
-            write_memory(plc, 12, 0, S7WLWord, value=set_value_Int)
+            write_memory(plc, 100, 0, S7WLWord, value=set_value_Int)
         elif time.sleep(12):
-            write_memory(plc, 12, 0, S7WLWord, value=set_value_Int)
+            write_memory(plc, 10, 0, S7WLWord, value=set_value_Int)
 # print(read_memory(plc, 60, 0, S7WLWord))
 
 
     if __name__ == "__main__":
         plc = c.Client()
-        plc.connect('192.168.2.22', 0, 1)
+        plc.connect('192.168.1.121', 0, 1)
         # Writing
         #write_memory(plc, 21, 0, S7WLWord, value=set_value_Int)
-        write_memory(plc, 12, 0, S7WLWord, value=set_value)
+        write_memory(plc, 100, 0, S7WLWord, value=set_value)
          # Reading
         print(read_memory(plc, 12, 0, S7WLWord))
-        print(time.time())
+        print(time.time(now))
 

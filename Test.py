@@ -6,7 +6,7 @@ from datetime import datetime
 from datetime import date
 import snap7.client as c
 from snap7.util import *
-from snap7.types import *
+from snap7.snap7types import *
 import math
 import matplotlib.pyplot as plt
 import datetime
@@ -23,7 +23,7 @@ def contains(cls, member):
 EnumMeta.__contains__ = contains
 
 client = c.Client()
-client.connect('192.168.2.22', 0, 1)
+client.connect('192.168.1.121', 0, 1)
 
 # Variable initialization
 # set_value = 0
@@ -31,6 +31,9 @@ size = 128
 min_1 = 1190
 in_table = []
 a = 1190
+PLC_IP = '192.168.1.121'
+plc = snap7.client.Client()
+
 
 """
 S7 1200 PlcSim IP 192.168.2.22
@@ -45,8 +48,9 @@ MW18 - DB1.DBW0 Analog Current Over Inverter
 """
 
 
+
 def read_memory(plc, byte, bit, data_type):
-    result = plc.read_area(Areas['MK'], 0, byte, data_type)
+    result = plc.read_area(Areas['Mk'], 0, byte, data_type)
     if data_type == S7WLBit:
         return get_bool(result, 0, bit)
     elif data_type == S7WLByte or data_type == S7WLWord:
@@ -119,15 +123,27 @@ for x_1 in range(256):
     print(x_1)
     time.sleep(2)
     set_value = in_table[x_1]
-    write_memory(client, 5, 0, S7WLWord, value=set_value)
-    print(read_memory(client, 13, 0, S7WLWord))
+    write_memory(client, 100, 0, S7WLWord, value=set_value)
+    print(read_memory(client, 102, 0, S7WLWord))
 
 if __name__ == "__main__":
-    plc = c.Client()
-    plc.connect('192.168.2.22', 0, 1)
+    # plc = c.Client()
+    # plc.connect('192.168.2.22', 0, 1)
+    #  connect to S7 1200
+    connected = False
+
+    while not connected:
+        try:
+            plc = snap7.client.Client()
+            plc.connect(PLC_IP, 0, 1)
+            error_connect = plc.get_connected()
+            connected = True  # Set flag  na True, if connected
+        except Exception:
+            print("Not connected. sleep 15 sec...")
+            time.sleep(15)
     # Writing
-    write_memory(plc,5, 0, S7WLWord, value=set_value)
+    write_memory(plc,100, 0, S7WLWord, value=set_value)
     # Reading
-    print(read_memory(plc, 13, 0, S7WLWord))
+    print(read_memory(plc, 102, 0, S7WLWord))
     print(in_table)
 

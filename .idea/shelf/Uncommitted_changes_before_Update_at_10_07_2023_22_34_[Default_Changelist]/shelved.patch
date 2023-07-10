@@ -1,0 +1,429 @@
+Index: Test_2.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import snap7\r\nimport struct\r\nimport csv\r\nimport time\r\nfrom datetime import datetime\r\nfrom datetime import date\r\nimport snap7.client as c\r\nfrom snap7.util import *\r\nfrom snap7.types import *\r\nimport math\r\nimport matplotlib.pyplot as plt\r\nimport datetime\r\n\r\nimport os\r\n\r\n\"\"\"\r\nS7 1200 PlcSim IP 192.168.2.22\r\nsize analog value min = 1200 (0.41 mg/L)    max = 14000 (5.04 mg/L)\r\noptimum = 6000 (2,15 mg/L)\r\n\r\nMW14- to DB1.DBW2 Analog AQ2 oxygen1 KDN\r\nMW16 - to DB1.DBW16 Analog Pressure Oxygen KDN\r\nMW18 - DB1.DBW0 Analog Current Over Inverter\r\n\r\n\r\n\"\"\"\r\n\r\n\r\ndef read_memory(plc, byte, bit, data_type):\r\n    result = plc.read_area(areas['MK'], 0, byte, data_type)\r\n    if data_type == S7WLBit:\r\n        return get_bool(result, 0, bit)\r\n    elif data_type == S7WLByte or data_type == S7WLWord:\r\n        return get_int(result, 0)\r\n    elif data_type == S7WLReal:\r\n        return get_real(result, 0)\r\n    elif data_type == S7WLDWord:\r\n        return get_dword(result, 0)\r\n    else:\r\n        return None\r\n\r\n\r\ndef write_memory(plc, byte, bit, data_type, value):\r\n    result = plc.read_area(areas['MK'], 0, byte, data_type)\r\n    if data_type == S7WLBit:\r\n        set_bool(result, 0, bit, value)\r\n    elif data_type == S7WLByte or data_type == S7WLWord:\r\n        set_int(result, 0, value)\r\n    elif data_type == S7WLReal:\r\n        set_real(result, 0, value)\r\n    elif data_type == S7WLDWord:\r\n        set_real(result, 0, value)\r\n    plc.write_area(areas[\"MK\"], 0, byte, result)\r\n\r\n\r\n# Variable initialization\r\n#set_value = 0\r\nsize = 750\r\nmin = 9\r\nin_table = []\r\na = 6\r\n\r\n\r\ndef function_sim_sinus(in_table, size, min, a):\r\n    b = 0\r\n    x = 0\r\n    d = 0\r\n    k = 0\r\n    while x < 256:\r\n        x += 1\r\n        for i in range(size):\r\n            a += 1\r\n            k += 1\r\n            if a < 27 and b == 0:\r\n                in_table.append(a)\r\n                print(b)\r\n            elif a >= 27 and b == 0:\r\n                b = 1\r\n                d = a\r\n                print('my set a -c', a)\r\n            else:\r\n                a = 21\r\n\r\n        for j in range(size):\r\n            if b != 0 and d > min:\r\n                d -= 2\r\n                k += 1\r\n                in_table.append(d)\r\n                print(b)\r\n            elif d <= min and b != 0:\r\n                a = d\r\n                b = 0\r\n                print('my set c -a ', d)\r\n            else:\r\n                a = 8\r\n# ---------------------------------\r\n\r\n\r\nplc = c.Client()\r\nplc.connect('192.168.2.22', 0, 1)\r\n\r\nfunction_sim_sinus(in_table, size, min, a)\r\nSize_table = len(in_table)\r\nprint(Size_table)\r\nprint(in_table)\r\n\r\nset_value_real = 2.5\r\n\r\n# integer in size 0 - 27648 (respectively 0-10.0 to PLC)\r\nset_value = 456\r\n\r\n# integer in size 0-100 (respectively  0 -10 to PLC )\r\nset_value_Int = 24\r\n\r\nwhile True:\r\n\r\n    for x_1 in range(256):\r\n        print(x_1)\r\n        print(read_memory(plc, 12, 0, S7WLWord))\r\n        print(time.time())\r\n        set_value_Int = in_table[x_1]\r\n        if set_value_Int <= 23:\r\n            time.sleep(15)\r\n            write_memory(plc, 12, 0, S7WLWord, value=set_value_Int)\r\n        elif time.sleep(12):\r\n            write_memory(plc, 12, 0, S7WLWord, value=set_value_Int)\r\n# print(read_memory(plc, 60, 0, S7WLWord))\r\n\r\n\r\n    if __name__ == \"__main__\":\r\n        plc = c.Client()\r\n        plc.connect('192.168.2.22', 0, 1)\r\n        # Writing\r\n        #write_memory(plc, 21, 0, S7WLWord, value=set_value_Int)\r\n        write_memory(plc, 12, 0, S7WLWord, value=set_value)\r\n         # Reading\r\n        print(read_memory(plc, 12, 0, S7WLWord))\r\n        print(time.time())\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Test_2.py b/Test_2.py
+--- a/Test_2.py	(revision edd79f150d2d4c03b9c87dafd4c74e998f2797ca)
++++ b/Test_2.py	(date 1689018371614)
+@@ -97,7 +97,7 @@
+ 
+ 
+ plc = c.Client()
+-plc.connect('192.168.2.22', 0, 1)
++plc.connect('192.168.1.121', 0, 1)
+ 
+ function_sim_sinus(in_table, size, min, a)
+ Size_table = len(in_table)
+@@ -121,18 +121,18 @@
+         set_value_Int = in_table[x_1]
+         if set_value_Int <= 23:
+             time.sleep(15)
+-            write_memory(plc, 12, 0, S7WLWord, value=set_value_Int)
++            write_memory(plc, 100, 0, S7WLWord, value=set_value_Int)
+         elif time.sleep(12):
+-            write_memory(plc, 12, 0, S7WLWord, value=set_value_Int)
++            write_memory(plc, 10, 0, S7WLWord, value=set_value_Int)
+ # print(read_memory(plc, 60, 0, S7WLWord))
+ 
+ 
+     if __name__ == "__main__":
+         plc = c.Client()
+-        plc.connect('192.168.2.22', 0, 1)
++        plc.connect('192.168.1.121', 0, 1)
+         # Writing
+         #write_memory(plc, 21, 0, S7WLWord, value=set_value_Int)
+-        write_memory(plc, 12, 0, S7WLWord, value=set_value)
++        write_memory(plc, 100, 0, S7WLWord, value=set_value)
+          # Reading
+         print(read_memory(plc, 12, 0, S7WLWord))
+         print(time.time())
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"0838515f-a7a3-49ee-b92b-9313064bac80\" name=\"Default Changelist\" comment=\"a floating-point conversion function to bits was created&#10;&#10;Signed-off-by: remceTkedaR &lt;radek69tecmer@gmail.com&gt;\">\r\n      <change afterPath=\"$PROJECT_DIR$/PLC_test.py\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/Test_2.py\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/funkcja_SWAP.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/PythonS7Snap_S7-1200_read_data.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/PythonS7Snap_S7-1200_read_data.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/S7Snap_S7-1200_Anlog_Symulator\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Snap7_S7_1200_Analog_Sim_ver1.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Snap7_S7_1200_Analog_Sim_ver1.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Test.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Test.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/db_read_write.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/db_read_write.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/functionSin.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/functionSin.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/mk_read_write.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/mk_read_write.py\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"PREVIOUS_COMMIT_AUTHORS\">\r\n      <list>\r\n        <option value=\"remceTkedaR &lt;radek69tecmer@gmail.com&gt;\" />\r\n        <option value=\"master\" />\r\n      </list>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/Test.py\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Test_2.py\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/mk_read_write.py\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/db_read_write.py\" root0=\"SKIP_INSPECTION\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1awccuuCoF43cackKzDagRnHqku\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"com.jetbrains.python.configuration.PythonContentEntriesConfigurable\" />\r\n  </component>\r\n  <component name=\"PyConsoleOptionsProvider\">\r\n    <option name=\"myPythonConsoleState\">\r\n      <console-settings module-name=\"PythonS7Snap_S7-1200_read_data\" is-module-sdk=\"true\">\r\n        <option name=\"myUseModuleSdk\" value=\"true\" />\r\n        <option name=\"myModuleName\" value=\"PythonS7Snap_S7-1200_read_data\" />\r\n      </console-settings>\r\n    </option>\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\rtecmer\\PycharmProjects\\S7Snap_S7-1200_Anlog_Symulator\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Python.funkcja_SWAP\">\r\n    <configuration name=\"Snap7_S7_1200_Analog_Sim_ver1\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"PythonS7Snap_S7-1200_read_data\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Snap7_S7_1200_Analog_Sim_ver1.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"Test\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"PythonS7Snap_S7-1200_read_data\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Test.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"functionSin\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"PythonS7Snap_S7-1200_read_data\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/functionSin.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"funkcja_SWAP\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"PythonS7Snap_S7-1200_read_data\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/funkcja_SWAP.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"mk_read_write\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"PythonS7Snap_S7-1200_read_data\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/mk_read_write.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Python.funkcja_SWAP\" />\r\n        <item itemvalue=\"Python.Test\" />\r\n        <item itemvalue=\"Python.Snap7_S7_1200_Analog_Sim_ver1\" />\r\n        <item itemvalue=\"Python.functionSin\" />\r\n        <item itemvalue=\"Python.mk_read_write\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"SvnConfiguration\">\r\n    <configuration />\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"0838515f-a7a3-49ee-b92b-9313064bac80\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1587650179830</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1587650179830</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"a floating-point conversion function to bits was created&#10;&#10;Signed-off-by: remceTkedaR &lt;radek69tecmer@gmail.com&gt;\">\r\n      <created>1587747611908</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1587747611908</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <ignored-roots>\r\n      <path value=\"$PROJECT_DIR$/S7Snap_S7-1200_Anlog_Symulator\" />\r\n    </ignored-roots>\r\n    <MESSAGE value=\"a floating-point conversion function to bits was created&#10;&#10;Signed-off-by: remceTkedaR &lt;radek69tecmer@gmail.com&gt;\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"a floating-point conversion function to bits was created&#10;&#10;Signed-off-by: remceTkedaR &lt;radek69tecmer@gmail.com&gt;\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision edd79f150d2d4c03b9c87dafd4c74e998f2797ca)
++++ b/.idea/workspace.xml	(date 1689021280762)
+@@ -1,18 +1,16 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="SELECTIVE" />
++  </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="0838515f-a7a3-49ee-b92b-9313064bac80" name="Default Changelist" comment="a floating-point conversion function to bits was created&#10;&#10;Signed-off-by: remceTkedaR &lt;radek69tecmer@gmail.com&gt;">
+-      <change afterPath="$PROJECT_DIR$/PLC_test.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/Test_2.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/funkcja_SWAP.py" afterDir="false" />
++    <list default="true" id="0838515f-a7a3-49ee-b92b-9313064bac80" name="Default Changelist" comment=" Function test">
++      <change afterPath="$PROJECT_DIR$/Test_nowy_1.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/PythonS7Snap_S7-1200_read_data.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PythonS7Snap_S7-1200_read_data.iml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/S7Snap_S7-1200_Anlog_Symulator" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Snap7_S7_1200_Analog_Sim_ver1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Snap7_S7_1200_Analog_Sim_ver1.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/db_read_write.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_read_write.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/functionSin.py" beforeDir="false" afterPath="$PROJECT_DIR$/functionSin.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Test_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test_2.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/mk_read_write.py" beforeDir="false" afterPath="$PROJECT_DIR$/mk_read_write.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -51,12 +49,14 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">
+-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+-  </component>
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "last_opened_file_path": "D:/Dokuments/Projekty/PyCharm/PythonS7Snap_S7-1200_read_data",
++    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
++  }
++}]]></component>
+   <component name="PyConsoleOptionsProvider">
+     <option name="myPythonConsoleState">
+       <console-settings module-name="PythonS7Snap_S7-1200_read_data" is-module-sdk="true">
+@@ -70,8 +70,8 @@
+       <recent name="C:\Users\rtecmer\PycharmProjects\S7Snap_S7-1200_Anlog_Symulator" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Python.funkcja_SWAP">
+-    <configuration name="Snap7_S7_1200_Analog_Sim_ver1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++  <component name="RunManager" selected="Python.Test">
++    <configuration name="Test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="PythonS7Snap_S7-1200_read_data" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+@@ -83,7 +83,7 @@
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Snap7_S7_1200_Analog_Sim_ver1.py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test.py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+       <option name="EMULATE_TERMINAL" value="false" />
+@@ -92,7 +92,7 @@
+       <option name="INPUT_FILE" value="" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="Test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++    <configuration name="Test_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="PythonS7Snap_S7-1200_read_data" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+@@ -104,7 +104,7 @@
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test.py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test_2.py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+       <option name="EMULATE_TERMINAL" value="false" />
+@@ -113,7 +113,7 @@
+       <option name="INPUT_FILE" value="" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="functionSin" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++    <configuration name="Test_nowy_1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="PythonS7Snap_S7-1200_read_data" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+@@ -125,7 +125,7 @@
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/functionSin.py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test_nowy_1.py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+       <option name="EMULATE_TERMINAL" value="false" />
+@@ -178,11 +178,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Python.funkcja_SWAP" />
+         <item itemvalue="Python.Test" />
+-        <item itemvalue="Python.Snap7_S7_1200_Analog_Sim_ver1" />
+-        <item itemvalue="Python.functionSin" />
++        <item itemvalue="Python.Test_2" />
++        <item itemvalue="Python.Test_nowy_1" />
+         <item itemvalue="Python.mk_read_write" />
++        <item itemvalue="Python.funkcja_SWAP" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -205,7 +205,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1587747611908</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL-00002" summary=" Function test">
++      <created>1678266204822</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1678266204822</updated>
++    </task>
++    <option name="localTasksCounter" value="3" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -224,6 +231,7 @@
+       <path value="$PROJECT_DIR$/S7Snap_S7-1200_Anlog_Symulator" />
+     </ignored-roots>
+     <MESSAGE value="a floating-point conversion function to bits was created&#10;&#10;Signed-off-by: remceTkedaR &lt;radek69tecmer@gmail.com&gt;" />
+-    <option name="LAST_COMMIT_MESSAGE" value="a floating-point conversion function to bits was created&#10;&#10;Signed-off-by: remceTkedaR &lt;radek69tecmer@gmail.com&gt;" />
++    <MESSAGE value=" Function test" />
++    <option name="LAST_COMMIT_MESSAGE" value=" Function test" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: Test.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import snap7\r\nimport struct\r\nimport csv\r\nimport time\r\nfrom datetime import datetime\r\nfrom datetime import date\r\nimport snap7.client as c\r\nfrom snap7.util import *\r\nfrom snap7.types import *\r\nimport math\r\nimport matplotlib.pyplot as plt\r\nimport datetime\r\n\r\nimport os\r\n\r\nfrom enum import EnumMeta\r\n\r\n\r\ndef contains(cls, member):\r\n    return isinstance(member, cls) and member._name_ in cls._member_map_\r\n\r\n\r\nEnumMeta.__contains__ = contains\r\n\r\nclient = c.Client()\r\nclient.connect('192.168.2.22', 0, 1)\r\n\r\n# Variable initialization\r\n# set_value = 0\r\nsize = 128\r\nmin_1 = 1190\r\nin_table = []\r\na = 1190\r\n\r\n\"\"\"\r\nS7 1200 PlcSim IP 192.168.2.22\r\nsize analog value min = 1200 (0.41 mg/L)    max = 14000 (5.04 mg/L)\r\noptimum = 6000 (2,15 mg/L)\r\n\r\nMW14- to DB1.DBW2 Analog AQ2 oxygen1 KDN\r\nMW16 - to DB1.DBW16 Analog Pressure Oxygen KDN\r\nMW18 - DB1.DBW0 Analog Current Over Inverter\r\n\r\n\r\n\"\"\"\r\n\r\n\r\ndef read_memory(plc, byte, bit, data_type):\r\n    result = plc.read_area(Areas['MK'], 0, byte, data_type)\r\n    if data_type == S7WLBit:\r\n        return get_bool(result, 0, bit)\r\n    elif data_type == S7WLByte or data_type == S7WLWord:\r\n        return get_int(result, 0)\r\n    elif data_type == S7WLReal:\r\n        return get_real(result, 0)\r\n    elif data_type == S7WLDWord:\r\n        return get_dword(result, 0)\r\n    else:\r\n        return None\r\n\r\n\r\ndef write_memory(plc, byte, bit, data_type, value):\r\n    result = plc.read_area(Areas['MK'], 0, byte, data_type)\r\n    if data_type == S7WLBit:\r\n        set_bool(result, 0, bit, value)\r\n    elif data_type == S7WLByte or data_type == S7WLWord:\r\n        set_int(result, 0, value)\r\n    elif data_type == S7WLReal:\r\n        set_real(result, 0, value)\r\n    elif data_type == S7WLDWord:\r\n        set_real(result, 0, value)\r\n    plc.write_area(Areas['MK'], 0, byte, result)\r\n\r\n\r\ndef function_sim_sinus(in_table, size, min_1, a):\r\n    b = 0\r\n    x = 0\r\n    d = 0\r\n    k = 0\r\n    while x < 256:\r\n        x += 1\r\n        for i in range(size):\r\n            a += 100\r\n            k += 1\r\n            if a < 14000 and b == 0:\r\n                in_table.append(a)\r\n                print(b)\r\n            elif a >= 2590 and b == 0:\r\n                b = 1\r\n                d = a\r\n                print('my set a -c', a)\r\n            else:\r\n                a = 1190\r\n\r\n        for j in range(size):\r\n            if b != 0 and d > min_1:\r\n                d -= 100\r\n                k += 1\r\n                in_table.append(d)\r\n                print(b)\r\n            elif d <= min_1 and b != 0:\r\n                a = d\r\n                b = 0\r\n                print('my set c -a ', d)\r\n            else:\r\n                a = 1000\r\n# ---------------------------------\r\n\r\n\r\nfunction_sim_sinus(in_table, size, min_1, a)\r\n\r\nSize_table = len(in_table)\r\nprint('Size table :', Size_table)\r\nprint('Table', in_table)\r\n\r\nset_value = 0\r\n\r\nfor x_1 in range(256):\r\n    print(x_1)\r\n    time.sleep(2)\r\n    set_value = in_table[x_1]\r\n    write_memory(client, 5, 0, S7WLWord, value=set_value)\r\n    print(read_memory(client, 13, 0, S7WLWord))\r\n\r\nif __name__ == \"__main__\":\r\n    plc = c.Client()\r\n    plc.connect('192.168.2.22', 0, 1)\r\n    # Writing\r\n    write_memory(plc,5, 0, S7WLWord, value=set_value)\r\n    # Reading\r\n    print(read_memory(plc, 13, 0, S7WLWord))\r\n    print(in_table)\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Test.py b/Test.py
+--- a/Test.py	(revision edd79f150d2d4c03b9c87dafd4c74e998f2797ca)
++++ b/Test.py	(date 1689019891358)
+@@ -6,7 +6,7 @@
+ from datetime import date
+ import snap7.client as c
+ from snap7.util import *
+-from snap7.types import *
++from snap7.snap7types import *
+ import math
+ import matplotlib.pyplot as plt
+ import datetime
+@@ -23,7 +23,7 @@
+ EnumMeta.__contains__ = contains
+ 
+ client = c.Client()
+-client.connect('192.168.2.22', 0, 1)
++client.connect('192.168.1.121', 0, 1)
+ 
+ # Variable initialization
+ # set_value = 0
+@@ -31,6 +31,9 @@
+ min_1 = 1190
+ in_table = []
+ a = 1190
++PLC_IP = '192.168.1.121'
++plc = snap7.client.Client()
++
+ 
+ """
+ S7 1200 PlcSim IP 192.168.2.22
+@@ -45,8 +48,9 @@
+ """
+ 
+ 
++
+ def read_memory(plc, byte, bit, data_type):
+-    result = plc.read_area(Areas['MK'], 0, byte, data_type)
++    result = plc.read_area(Areas['Mk'], 0, byte, data_type)
+     if data_type == S7WLBit:
+         return get_bool(result, 0, bit)
+     elif data_type == S7WLByte or data_type == S7WLWord:
+@@ -119,15 +123,27 @@
+     print(x_1)
+     time.sleep(2)
+     set_value = in_table[x_1]
+-    write_memory(client, 5, 0, S7WLWord, value=set_value)
+-    print(read_memory(client, 13, 0, S7WLWord))
++    write_memory(client, 100, 0, S7WLWord, value=set_value)
++    print(read_memory(client, 102, 0, S7WLWord))
+ 
+ if __name__ == "__main__":
+-    plc = c.Client()
+-    plc.connect('192.168.2.22', 0, 1)
++    # plc = c.Client()
++    # plc.connect('192.168.2.22', 0, 1)
++    #  connect to S7 1200
++    connected = False
++
++    while not connected:
++        try:
++            plc = snap7.client.Client()
++            plc.connect(PLC_IP, 0, 1)
++            error_connect = plc.get_connected()
++            connected = True  # Set flag  na True, if connected
++        except Exception:
++            print("Not connected. sleep 15 sec...")
++            time.sleep(15)
+     # Writing
+-    write_memory(plc,5, 0, S7WLWord, value=set_value)
++    write_memory(plc,100, 0, S7WLWord, value=set_value)
+     # Reading
+-    print(read_memory(plc, 13, 0, S7WLWord))
++    print(read_memory(plc, 102, 0, S7WLWord))
+     print(in_table)
+ 
+Index: mk_read_write.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#  Test program for communication of Snap7 python with S7 1200\r\n# Reading dnd writing variable MK\r\n# by Radosław Tecmer\r\n# radek69tecmer@gmail.com\r\n# 2023 -02-28 ( ok)\r\n# ------------------------\r\n\r\nimport snap7\r\nimport snap7.client as c\r\nfrom snap7.util import *\r\nfrom snap7.types import *\r\nimport struct\r\nimport csv\r\nimport time\r\nfrom datetime import datetime\r\nfrom datetime import date\r\nimport fnmatch\r\nimport os\r\nimport locale\r\n\r\n\"\"\"\r\nHome Co\r\nDB4.X6.0 - furnace valve\r\nDB4.X6.1 - Living room valve\r\nDB4.X6.2 - Hall room valve\r\nDB4.X6.3 - Bedroom 1 valve\r\nDB4.X6.4 - Bedroom 2 valve\r\nDB4.X6.5 - TV room valve\r\nDB4.X6.6 - Bathroom valve \r\nDB4.X6.7 - WC valve\r\n\r\n\"\"\"\r\n\r\nclient = snap7.client.Client()\r\nclient.connect('192.168.2.22', 0, 1)\r\nclient.get_connected()\r\n\r\n\r\ndef read_memory(client, byte, bit, data_type):\r\n    result = client.read_area(Areas['MK'], 0, byte, data_type)\r\n    if data_type == S7WLBit:\r\n        return get_bool(result, 0, bit)\r\n    elif data_type == S7WLByte or data_type == S7WLWord:\r\n        return get_int(result, 0)\r\n    elif data_type == S7WLReal:\r\n        return get_real(result, 0)\r\n    elif data_type == S7WLDWord:\r\n        return get_dword(result, 0)\r\n    else:\r\n        return None\r\n\r\n\r\ndef write_memory(client, byte, bit, data_type, value):\r\n    result = client.read_area(Areas['MK'], 0, byte, data_type)\r\n    if data_type == S7WLBit:\r\n        set_bool(result, 0, bit, value)\r\n    elif data_type == S7WLByte or data_type == S7WLWord:\r\n        set_int(result, 0, value)\r\n    elif data_type == S7WLReal:\r\n        set_real(result, 0, value)\r\n    elif data_type == S7WLDWord:\r\n        set_real(result, 0, value)\r\n    client.write_area(Areas[\"MK\"], 0, byte, result)\r\n\r\n\r\nif __name__ == \"__main__\":\r\n    print(read_memory(client, 13, 0, S7WLWord))\r\n    print(write_memory(client,5,38,S7WLWord,3))\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/mk_read_write.py b/mk_read_write.py
+--- a/mk_read_write.py	(revision edd79f150d2d4c03b9c87dafd4c74e998f2797ca)
++++ b/mk_read_write.py	(date 1689017244994)
+@@ -8,7 +8,7 @@
+ import snap7
+ import snap7.client as c
+ from snap7.util import *
+-from snap7.types import *
++from snap7.snap7types import *
+ import struct
+ import csv
+ import time
+@@ -32,7 +32,7 @@
+ """
+ 
+ client = snap7.client.Client()
+-client.connect('192.168.2.22', 0, 1)
++client.connect('192.168.1.121', 0, 1)
+ client.get_connected()
+ 
+ 
+@@ -64,5 +64,5 @@
+ 
+ 
+ if __name__ == "__main__":
+-    print(read_memory(client, 13, 0, S7WLWord))
+-    print(write_memory(client,5,38,S7WLWord,3))
++    print(read_memory(client, 102, 0, S7WLWord))
++    print(write_memory(client,100,0,S7WLWord,3))
+Index: Test_nowy_1.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Test_nowy_1.py b/Test_nowy_1.py
+new file mode 100644
+--- /dev/null	(date 1689019005414)
++++ b/Test_nowy_1.py	(date 1689019005414)
+@@ -0,0 +1,68 @@
++#  Test program for communication of Snap7 python with S7 1200
++# Reading dnd writing variable MK
++# by Radosław Tecmer
++# radek69tecmer@gmail.com
++# 2023 -02-28 ( ok)
++# ------------------------
++
++import snap7
++import snap7.client as c
++from snap7.util import *
++from snap7.snap7types import *
++import struct
++import csv
++import time
++from datetime import datetime
++from datetime import date
++import fnmatch
++import os
++import locale
++
++"""
++Home Co
++DB4.X6.0 - furnace valve
++DB4.X6.1 - Living room valve
++DB4.X6.2 - Hall room valve
++DB4.X6.3 - Bedroom 1 valve
++DB4.X6.4 - Bedroom 2 valve
++DB4.X6.5 - TV room valve
++DB4.X6.6 - Bathroom valve 
++DB4.X6.7 - WC valve
++
++"""
++
++client = snap7.client.Client()
++client.connect('192.168.1.121', 0, 1)
++client.get_connected()
++
++
++def read_memory(client, byte, bit, data_type):
++    result = client.read_area(Areas['MK'], 0, byte, data_type)
++    if data_type == S7WLBit:
++        return get_bool(result, 0, bit)
++    elif data_type == S7WLByte or data_type == S7WLWord:
++        return get_int(result, 0)
++    elif data_type == S7WLReal:
++        return get_real(result, 0)
++    elif data_type == S7WLDWord:
++        return get_dword(result, 0)
++    else:
++        return None
++
++
++def write_memory(client, byte, bit, data_type, value):
++    result = client.read_area(Areas['MK'], 0, byte, data_type)
++    if data_type == S7WLBit:
++        set_bool(result, 0, bit, value)
++    elif data_type == S7WLByte or data_type == S7WLWord:
++        set_int(result, 0, value)
++    elif data_type == S7WLReal:
++        set_real(result, 0, value)
++    elif data_type == S7WLDWord:
++        set_real(result, 0, value)
++    client.write_area(Areas["MK"], 0, byte, result)
++
++
++if __name__ == "__main__":
++    print(read_memory(client, 13, 0, S7WLWord))
++    print(write_memory(client,5,38,S7WLWord,3))
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.10 (S7Snap_S7-1200_Anlog_Symulator)\" project-jdk-type=\"Python SDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision edd79f150d2d4c03b9c87dafd4c74e998f2797ca)
++++ b/.idea/misc.xml	(date 1689015529628)
+@@ -1,4 +1,4 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (S7Snap_S7-1200_Anlog_Symulator)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.7" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: .idea/PythonS7Snap_S7-1200_read_data.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/venv\" />\r\n    </content>\r\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.10 (S7Snap_S7-1200_Anlog_Symulator)\" jdkType=\"Python SDK\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n  <component name=\"TestRunnerService\">\r\n    <option name=\"PROJECT_TEST_RUNNER\" value=\"pytest\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/PythonS7Snap_S7-1200_read_data.iml b/.idea/PythonS7Snap_S7-1200_read_data.iml
+--- a/.idea/PythonS7Snap_S7-1200_read_data.iml	(revision edd79f150d2d4c03b9c87dafd4c74e998f2797ca)
++++ b/.idea/PythonS7Snap_S7-1200_read_data.iml	(date 1689015529589)
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.10 (S7Snap_S7-1200_Anlog_Symulator)" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+   <component name="TestRunnerService">
