@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0838515f-a7a3-49ee-b92b-9313064bac80" name="Default Changelist" comment="a floating-point conversion function to bits was created&#10;&#10;Signed-off-by: remceTkedaR &lt;radek69tecmer@gmail.com&gt;">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_22_34_[Default_Changelist]/shelved.patch" afterDir="false" />
+    <list default="true" id="0838515f-a7a3-49ee-b92b-9313064bac80" name="Default Changelist" comment="Add new lists function">
       <change beforePath="$PROJECT_DIR$/.idea/PythonS7Snap_S7-1200_read_data.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PythonS7Snap_S7-1200_read_data.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_22_34__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_22_34__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PLC_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/PLC_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Snap7_S7_1200_Analog_Sim_ver1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Snap7_S7_1200_Analog_Sim_ver1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mk_read_write.py" beforeDir="false" afterPath="$PROJECT_DIR$/mk_read_write.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionSin.py" beforeDir="false" afterPath="$PROJECT_DIR$/functionSin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/funkcja_SWAP.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,12 +36,13 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Test.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/Test_2.py" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/mk_read_write.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/db_read_write.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/mk_read_write.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -49,12 +53,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "last_opened_file_path": "C:/Users/rtecmer/Documents/A_Dokumenty/PyCharm_Projects/Python Kurs_1/Kurs  wydanie 4",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings module-name="PythonS7Snap_S7-1200_read_data" is-module-sdk="true">
@@ -68,7 +72,7 @@
       <recent name="C:\Users\rtecmer\PycharmProjects\S7Snap_S7-1200_Anlog_Symulator" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Test_nowy_1">
+  <component name="RunManager" selected="Python.funkcja_SWAP">
     <configuration name="Snap7_S7_1200_Analog_Sim_ver1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonS7Snap_S7-1200_read_data" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -111,7 +115,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Test_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="common" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonS7Snap_S7-1200_read_data" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -119,11 +123,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/venv/Lib/site-packages/snap7" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test_2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/venv/Lib/site-packages/snap7/common.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -132,7 +136,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Test_nowy_1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="functionSin" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonS7Snap_S7-1200_read_data" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -144,7 +148,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test_nowy_1.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/functionSin.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -176,11 +180,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Test_nowy_1" />
-        <item itemvalue="Python.Test_2" />
         <item itemvalue="Python.funkcja_SWAP" />
-        <item itemvalue="Python.Test" />
+        <item itemvalue="Python.functionSin" />
         <item itemvalue="Python.Snap7_S7_1200_Analog_Sim_ver1" />
+        <item itemvalue="Python.common" />
+        <item itemvalue="Python.Test" />
       </list>
     </recent_temporary>
   </component>
@@ -203,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587747611908</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary=" Function test">
+      <created>1678266204822</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1678266204822</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -222,6 +233,7 @@
       <path value="$PROJECT_DIR$/S7Snap_S7-1200_Anlog_Symulator" />
     </ignored-roots>
     <MESSAGE value="a floating-point conversion function to bits was created&#10;&#10;Signed-off-by: remceTkedaR &lt;radek69tecmer@gmail.com&gt;" />
-    <option name="LAST_COMMIT_MESSAGE" value="a floating-point conversion function to bits was created&#10;&#10;Signed-off-by: remceTkedaR &lt;radek69tecmer@gmail.com&gt;" />
+    <MESSAGE value=" Function test" />
+    <option name="LAST_COMMIT_MESSAGE" value=" Function test" />
   </component>
 </project>

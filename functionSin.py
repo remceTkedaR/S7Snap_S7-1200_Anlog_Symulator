@@ -7,13 +7,8 @@ import matplotlib.pyplot as plt
 import datetime
 
 
-size = 128
-min_1 = 8
-in_table = []
-a = 0
-
-
 def function_sim_sinus(in_table, size, min_1, a):
+    a = 0
     b = 0
     x = 0
     d = 0
@@ -47,24 +42,29 @@ def function_sim_sinus(in_table, size, min_1, a):
                 a = 8
 
 
-function_sim_sinus(in_table, size, min_1, a)
-
-""""
-for j in range(len(in_table)):
-    out_table.append(math.sin(in_table[j]))
-    j += 1
-"""
-
-# red for numpy.sin()
-x_time = np.arange(0.0, len(in_table), 1)
-
-
-print(in_table)
-print(len(in_table))
-
-plt.plot(x_time, in_table,  color="red")
-plt.xlabel("Time")
-plt.ylabel("Value")
-plt.show()
+# my_size = 128
+# min_my = 8
+# my_table = []
+# index_a = 0
+#
+# function_sim_sinus(my_table, my_size, min_my, index_a)
+#
+# """"
+# for j in range(len(in_table)):
+#     out_table.append(math.sin(in_table[j]))
+#     j += 1
+# """
+#
+# # red for numpy.sin()
+# x_time = np.arange(0.0, len(my_table), 1)
+#
+#
+# print(my_table)
+# print(len(my_table))
+#
+# plt.plot(x_time, my_table,  color="red")
+# plt.xlabel("Time")
+# plt.ylabel("Value")
+# plt.show()
 
 

@@ -23,7 +23,7 @@ def contains(cls, member):
 EnumMeta.__contains__ = contains
 
 client = c.Client()
-client.connect('192.168.1.121', 0, 1)
+client.connect(PLC_IP, 0, 1)
 
 # Variable initialization
 # set_value = 0
@@ -32,17 +32,16 @@ min_1 = 1190
 in_table = []
 a = 1190
 PLC_IP = '192.168.1.121'
+
 plc = snap7.client.Client()
 
 
 """
 S7 1200 PlcSim IP 192.168.2.22
-size analog value min = 1200 (0.41 mg/L)    max = 14000 (5.04 mg/L)
-optimum = 6000 (2,15 mg/L)
 
-MW14- to DB1.DBW2 Analog AQ2 oxygen1 KDN
-MW16 - to DB1.DBW16 Analog Pressure Oxygen KDN
-MW18 - DB1.DBW0 Analog Current Over Inverter
+
+Lists verilable 
+%MW  - 
 
 
 """
