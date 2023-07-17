@@ -1,3 +1,8 @@
+# ######################################## #
+# by Radosław Tecmer (remceTkedaR)
+# radoslaw69tecmer@gmail.com
+# ######################################### #
+
 import snap7
 import struct
 import csv
