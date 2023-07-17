@@ -13,6 +13,8 @@ d) lists_functions.py - a list of all functions in the snap7 library,
 e) mk_read_write.py - reading and writing values to the controller's memory tag, 
 f) Snap7_S7_1200_Analog_Sim_ver1.py - program for simulating a real-world object.
 
+## Schematic
+![A fragment of the tested system](https://github.com/remceTkedaR/images/blob/master/images/my_networc_sim_1.jpg)
 
 ## Download and Installation
 
